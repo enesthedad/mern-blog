@@ -1,10 +1,55 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { HiMail } from "react-icons/hi";
+import {
+  Alert,
+  Button,
+  Checkbox,
+  Label,
+  Spinner,
+  TextInput,
+} from "flowbite-react";
+import { HiMail, HiInformationCircle } from "react-icons/hi";
 import { FaUser, FaGoogle } from "react-icons/fa";
 import { MdOutlinePassword } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BlogIcon } from "../components/BlogIcon";
+import { useState } from "react";
 export const SignUp = () => {
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage("Please fill out all fields");
+    }
+    try {
+      setLoading(true);
+      setErrorMessage(null);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setErrorMessage(data.message);
+      }
+      setLoading(false);
+      if (res.ok) {
+        navigate("/");
+      }
+    } catch (error) {
+      setErrorMessage(error);
+      setLoading(false);
+    }
+  };
+  console.log(formData);
   return (
     <div className="flex flex-col md:flex-row items-center gap-4">
       <div className="max-w-[250px] md:max-w-md p-2 flex flex-col md:items-start items-center">
@@ -14,39 +59,42 @@ export const SignUp = () => {
           if you consider to check my blog ✌🏻
         </p>
       </div>
-      <form className="flex max-w-md flex-col gap-4">
+      <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your username" />
+            <Label htmlFor="username" value="Your username" />
           </div>
           <TextInput
             icon={FaUser}
-            id="email1"
-            type="email"
+            id="username"
+            type="username"
             placeholder="username"
-            required
+            value={formData.username}
+            onChange={handleChange}
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your email" />
+            <Label htmlFor="email" value="Your email" />
           </div>
           <TextInput
             icon={HiMail}
-            id="email1"
+            id="email"
             type="email"
             placeholder="name@flowbite.com"
-            required
+            onChange={handleChange}
+            value={formData.email}
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="password1" value="Your password" />
+            <Label htmlFor="password" value="Your password" />
           </div>
           <TextInput
-            id="password1"
+            id="password"
             type="password"
-            required
+            onChange={handleChange}
+            value={formData.password}
             icon={MdOutlinePassword}
             placeholder="********"
           />
@@ -57,13 +105,27 @@ export const SignUp = () => {
             <Link className="text-blue-500">Login</Link>{" "}
           </p>
         </div>
-        <Button gradientDuoTone="purpleToBlue" type="submit">
-          Signup
+        <Button gradientDuoTone="purpleToBlue" type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <Spinner size="sm" />
+              <span>loading....</span>
+            </>
+          ) : (
+            `Signup`
+          )}
         </Button>
         <Button color="dark">
           <FaGoogle className="mr-2" />
           Sign up with Google
         </Button>
+        {errorMessage ? (
+          <div>
+            <Alert color="failure" icon={HiInformationCircle}>
+              {errorMessage}
+            </Alert>
+          </div>
+        ) : null}
       </form>
     </div>
   );

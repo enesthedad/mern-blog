@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 app.use(express.json());
 
-app.use("/api", userRouter);
+app.use("/api/auth", userRouter);
 app.listen(3000, () => {
   console.log("server is on 3000");
   connectToDb();
