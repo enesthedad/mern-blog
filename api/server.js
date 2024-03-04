@@ -14,6 +14,13 @@ app.get("/", (req, res) => {
   res.json({ status: 200, message: "get is working!" });
 });
 app.use(express.json());
+
+app.use("/api", userRouter);
+app.listen(3000, () => {
+  console.log("server is on 3000");
+  connectToDb();
+});
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
@@ -22,9 +29,4 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
-});
-app.use("/api", userRouter);
-app.listen(3000, () => {
-  console.log("server is on 3000");
-  connectToDb();
 });
