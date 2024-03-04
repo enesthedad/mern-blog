@@ -24,7 +24,7 @@ export const Header = () => {
           <FaMoon className="" />
         </Button>
         <Link>
-          <Button gradientDuoTone="greenToBlue" outline color="">
+          <Button gradientDuoTone="purpleToBlue" outline color="">
             Login
           </Button>
         </Link>
