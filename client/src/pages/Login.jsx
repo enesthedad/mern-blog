@@ -5,23 +5,23 @@ import { MdOutlinePassword } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { BlogIcon } from "../components/BlogIcon";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loginStart, loginSuccess, loginError } from "../redux/user/userSlice";
 export const Login = () => {
   const [formData, setFormData] = useState({});
-
+  const dispatch = useDispatch();
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return setErrorMessage("Please fill out all fields");
+      return dispatch(loginError("Please fill out all fields"));
     }
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(loginStart());
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -29,17 +29,16 @@ export const Login = () => {
       });
 
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
-        setErrorMessage(data.message);
+        dispatch(loginError(data.error));
       }
-      setLoading(false);
+
       if (res.ok) {
+        dispatch(loginSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      setErrorMessage(error);
-      setLoading(false);
+      dispatch(loginError(error.message));
     }
   };
   console.log(formData);
