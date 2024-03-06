@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 export const Header = () => {
   const path = useLocation().pathname;
   return (
-    <Navbar className="border-b-2  flex py-2 px-3 md:py-4 md:px-6 ">
+    <Navbar className="top-0 z-10 w-full px-3 py-2 mb-2 border-b-2 md:absolute md:py-4 md:px-6 ">
       <Logo />
       <form>
         <TextInput
@@ -20,7 +20,7 @@ export const Header = () => {
         <IoIosSearch className="text-[20px] text-stone-800" />
       </Button>
       <div className="flex gap-3 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline " color="gray" pill>
+        <Button className="hidden w-12 h-10 sm:inline " color="gray" pill>
           <FaMoon className="" />
         </Button>
         <Link>

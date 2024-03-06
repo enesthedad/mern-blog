@@ -51,7 +51,7 @@ export const SignUp = () => {
   };
   console.log(formData);
   return (
-    <div className="flex flex-col md:flex-row items-center gap-4">
+    <div className="flex flex-col items-center gap-4 md:flex-row">
       <div className="max-w-[250px] md:max-w-md p-2 flex flex-col md:items-start items-center">
         <BlogIcon />
         <p className="max-w-sm font-semibold text-stone-600">
@@ -59,50 +59,55 @@ export const SignUp = () => {
           if you consider to check my blog ✌🏻
         </p>
       </div>
-      <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col max-w-md gap-4 text-sm"
+        onSubmit={handleSubmit}
+      >
         <div>
-          <div className="mb-2 block">
+          <div className="flex flex-col items-center justify-between gap-2 mb-1 md:flex-row">
             <Label htmlFor="username" value="Your username" />
+            <TextInput
+              icon={FaUser}
+              id="username"
+              type="username"
+              placeholder="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
           </div>
-          <TextInput
-            icon={FaUser}
-            id="username"
-            type="username"
-            placeholder="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
         </div>
         <div>
-          <div className="mb-2 block">
+          <div className="flex flex-col items-center justify-between gap-2 mb-1 md:flex-row">
             <Label htmlFor="email" value="Your email" />
+            <TextInput
+              icon={HiMail}
+              id="email"
+              type="email"
+              placeholder="name@flowbite.com"
+              onChange={handleChange}
+              value={formData.email}
+            />
           </div>
-          <TextInput
-            icon={HiMail}
-            id="email"
-            type="email"
-            placeholder="name@flowbite.com"
-            onChange={handleChange}
-            value={formData.email}
-          />
         </div>
         <div>
-          <div className="mb-2 block">
+          <div className="flex flex-col items-center justify-between gap-2 mb-1 md:flex-row ">
             <Label htmlFor="password" value="Your password" />
+            <TextInput
+              id="password"
+              type="password"
+              onChange={handleChange}
+              value={formData.password}
+              icon={MdOutlinePassword}
+              placeholder="********"
+            />
           </div>
-          <TextInput
-            id="password"
-            type="password"
-            onChange={handleChange}
-            value={formData.password}
-            icon={MdOutlinePassword}
-            placeholder="********"
-          />
         </div>
         <div className="flex items-center gap-2">
           <p>
             Already have an account?{" "}
-            <Link className="text-blue-500">Login</Link>{" "}
+            <Link to="/login" className="text-blue-500">
+              Login
+            </Link>{" "}
           </p>
         </div>
         <Button gradientDuoTone="purpleToBlue" type="submit" disabled={loading}>

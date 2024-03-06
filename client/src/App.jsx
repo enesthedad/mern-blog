@@ -6,12 +6,13 @@ import { SignUp } from "./pages/SignUp";
 import { Projects } from "./pages/Projects";
 import { Dashboard } from "./pages/Dashboard";
 import { Header } from "./components/Header";
+import { FooterComponent } from "./components/Footer";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <div className="min-h-screen w-full justify-center items-center flex">
+      <div className="flex flex-col items-center justify-center w-full min-h-screen">
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -22,7 +23,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
-      <div className="">a</div>
+      <FooterComponent />
     </BrowserRouter>
   );
 }
