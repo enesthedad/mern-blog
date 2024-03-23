@@ -20,7 +20,7 @@ export const Header = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
   return (
-    <Navbar className="top-0 z-10 w-full px-3 py-2 mb-2 border-b-2 md:absolute md:py-4 md:px-6 ">
+    <Navbar className="top-0 z-10 w-full px-3 py-2 mb-2 border-b-2 md:py-4 md:px-6 ">
       <Logo />
       <form>
         <TextInput
