@@ -1,9 +1,12 @@
+import { useSelector } from "react-redux";
 export const BlogIcon = () => {
+  const { theme } = useSelector((state) => state.theme);
+
   return (
-    <div>
-      <h1 className="text-[30px] md:text-[42px] text-[#273141]  font-bold justify-center flex">
+    <div className={theme}>
+      <h1 className="text-[30px] md:text-[42px] font-bold justify-center flex">
         <a href="/">
-          <div className="relative">
+          <div className="relative text-blue-400 dark:text-red-600">
             e<span className="text-[#FE7D91]">.</span>soyturk
             <p className="absolute right-0 top-[-10px] text-[12px] md:text-[20px]">
               엔<span className="text-[#B1DCC9]">에</span>스

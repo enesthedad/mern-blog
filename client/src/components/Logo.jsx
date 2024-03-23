@@ -1,6 +1,6 @@
 const Logo = () => {
   return (
-    <h1 className="text-[20px] md:text-[24px] text-[#273141]  font-bold justify-center flex">
+    <h1 className="text-[20px] md:text-[24px] text-[#273141] dark:text-[#f5f5f5]  font-bold justify-center flex">
       <a href="/">
         <div className="relative">
           e<span className="text-[#FE7D91]">.</span>soyturk

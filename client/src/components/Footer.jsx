@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { FaSquareXTwitter, FaPerson } from "react-icons/fa6";
 import logoPicture from "../imgs/logo.png";
+import Logo from "./Logo";
 export const FooterComponent = () => {
   const getYear = () => {
     const year = new Date().getFullYear();
@@ -21,12 +22,7 @@ export const FooterComponent = () => {
       <div className="w-full">
         <div className="grid justify-between w-full gap-5 sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="flex flex-col items-start max-w-sm gap-3 p-4">
-            <Footer.Brand
-              href="http://enesthedad.netlify.app"
-              src={logoPicture}
-              alt="Blog picture"
-              name=""
-            />
+            <Logo />
             <Label>
               My personal blog. Where I share my dev journey. I would be very
               happy if you consider to check my blog ✌🏻

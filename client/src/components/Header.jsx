@@ -12,10 +12,13 @@ import Logo from "./Logo";
 import { IoIosSearch } from "react-icons/io";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlicer";
 export const Header = () => {
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
   return (
     <Navbar className="top-0 z-10 w-full px-3 py-2 mb-2 border-b-2 md:absolute md:py-4 md:px-6 ">
       <Logo />
@@ -31,8 +34,13 @@ export const Header = () => {
         <IoIosSearch className="text-[20px] text-stone-800" />
       </Button>
       <div className="flex gap-3 md:order-2">
-        <Button className="hidden w-12 h-10 sm:inline " color="gray" pill>
-          <FaMoon className="" />
+        <Button
+          className="hidden w-12 h-10 sm:inline "
+          onClick={() => dispatch(toggleTheme())}
+          color="gray"
+          pill
+        >
+          {theme === "dark" ? <FaSun /> : <FaMoon className="" />}
         </Button>
         {currentUser ? (
           <Dropdown
