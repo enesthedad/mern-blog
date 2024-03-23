@@ -7,6 +7,7 @@ import { BlogIcon } from "../components/BlogIcon";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginError } from "../redux/user/userSlice";
+import { OAuth } from "../components/OAuth";
 export const Login = () => {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
@@ -91,16 +92,13 @@ export const Login = () => {
           {loading ? (
             <>
               <Spinner size="sm" />
-              <span>loading....</span>
+              <span>Loading....</span>
             </>
           ) : (
             `Signup`
           )}
         </Button>
-        <Button color="dark">
-          <FaGoogle className="mr-2" />
-          Sign up with Google
-        </Button>
+        <OAuth />
         {errorMessage ? (
           <div>
             <Alert color="failure" icon={HiInformationCircle}>
