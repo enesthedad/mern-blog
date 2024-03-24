@@ -20,7 +20,7 @@ export const Header = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
   return (
-    <Navbar className="top-0 z-10 w-full px-3 py-2 mb-2 border-b-2 md:py-4 md:px-6 ">
+    <Navbar className="top-0 z-10 w-full px-3 py-2 border-b-2 md:py-4 md:px-6 ">
       <Logo />
       <form>
         <TextInput
@@ -56,13 +56,13 @@ export const Header = () => {
                 {currentUser.email}
               </span>
             </DropdownHeader>
-            <Link to={"/dashboard?tab=profile"}>
-              <DropdownItem>
+            <Link to={"/dashboard?tab=profile"} as="div">
+              <DropdownItem as="div">
                 <span className="text-md">Profile</span>
               </DropdownItem>
             </Link>
             <DropdownDivider />
-            <DropdownItem>
+            <DropdownItem as="div">
               <span className="font-semibold text-red-500">Logout</span>
             </DropdownItem>
           </Dropdown>
@@ -76,13 +76,13 @@ export const Header = () => {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link active={path === "/"}>
+        <Navbar.Link as="div" active={path === "/"}>
           <Link to="/">Home</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/about"}>
+        <Navbar.Link as="div" active={path === "/about"}>
           <Link to="/about">About</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/projects"}>
+        <Navbar.Link as="div" active={path === "/projects"}>
           <Link to="/projects">Projects</Link>
         </Navbar.Link>
       </Navbar.Collapse>
